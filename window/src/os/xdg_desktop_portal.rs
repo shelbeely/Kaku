@@ -10,7 +10,7 @@ use std::collections::HashMap;
 use std::sync::Mutex;
 use std::time::Instant;
 use zbus::proxy;
-use zvariant::OwnedValue;
+use zbus::zvariant::OwnedValue;
 
 #[proxy(
     interface = "org.freedesktop.portal.Settings",
