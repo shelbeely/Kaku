@@ -59,6 +59,7 @@ plist.workspace = true
 shlex.workspace = true
 
 [target.'cfg(all(unix, not(target_os="macos")))'.dependencies]
+filedescriptor.workspace = true
 wayland-backend.workspace = true
 wayland-client.workspace = true
 wayland-egl.workspace = true

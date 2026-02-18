@@ -2965,21 +2965,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "metal"
-version = "0.31.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f569fb946490b5743ad69813cb19629130ce9374034abe31614a36402d18f99e"
-dependencies = [
- "bitflags 2.10.0",
- "block",
- "core-graphics-types 0.1.3",
- "foreign-types 0.5.0",
- "log",
- "objc",
- "paste",
-]
-
-[[package]]
 name = "metrics"
 version = "0.23.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6144,19 +6129,9 @@ dependencies = [
  "rustc-hash 1.1.0",
  "smallvec",
  "thiserror 2.0.17",
- "wgpu-core-deps-apple",
  "wgpu-core-deps-windows-linux-android",
  "wgpu-hal",
  "wgpu-types",
-]
-
-[[package]]
-name = "wgpu-core-deps-apple"
-version = "25.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cfd488b3239b6b7b185c3b045c39ca6bf8af34467a4c5de4e0b1a564135d093d"
-dependencies = [
- "wgpu-hal",
 ]
 
 [[package]]
@@ -6174,21 +6149,13 @@ version = "25.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f968767fe4d3d33747bbd1473ccd55bf0f6451f55d733b5597e67b5deab4ad17"
 dependencies = [
- "arrayvec",
  "bitflags 2.10.0",
- "block",
  "cfg_aliases",
- "core-graphics-types 0.1.3",
- "hashbrown 0.15.5",
- "libc",
  "libloading",
  "log",
- "metal",
  "naga",
- "objc",
  "parking_lot",
  "portable-atomic",
- "profiling",
  "raw-window-handle",
  "renderdoc-sys",
  "thiserror 2.0.17",
@@ -6281,6 +6248,7 @@ dependencies = [
  "core-graphics 0.24.0",
  "downcast-rs",
  "euclid",
+ "filedescriptor",
  "gl_generator",
  "glium",
  "guillotiere",

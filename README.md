@@ -26,10 +26,28 @@
 
 ## Quick Start
 
+### macOS
+
 1. [Download Kaku DMG](https://github.com/tw93/Kaku/releases/latest) & Drag to Applications
 2. Or install with Homebrew: `brew install tw93/tap/kakuku`
 3. Open Kaku. The app is notarized by Apple, so it opens without security warnings
 4. On first launch, Kaku will automatically set up your shell environment
+
+### Linux (Ubuntu/KDE Plasma)
+
+**📘 See [LINUX.md](LINUX.md) for complete Linux installation and usage guide.**
+
+Quick CLI installation:
+```bash
+# Install dependencies
+sudo apt-get install -y libwayland-dev libxkbcommon-dev libx11-dev libxcb1-dev
+
+# Build and install
+cargo build --release -p kaku
+sudo cp target/release/kaku /usr/local/bin/
+```
+
+**Note**: GUI support is currently in development. CLI tools are fully functional.
 
 ## Usage Guide
 
@@ -95,15 +113,41 @@ Achieved through aggressive stripping of unused features, lazy loading of color 
 
    The name `kaku` conflicts with another package in Homebrew's official repository (an unmaintained music player). `kakuku` is a cute variation that's easy to remember.
 
-2. **Is there a Windows or Linux version?**
+2. **Is there a Linux version?**
 
-   Not at the moment. Kaku is currently macOS-only while we focus on polishing the macOS experience. Windows and Linux versions may come later once the macOS version is mature.
+   **Yes!** Linux support is now available for Ubuntu and KDE Plasma-based distributions. Currently, the CLI tools (`kaku` command) are fully functional on Linux. The GUI (`kaku-gui`) requires additional implementation work for Wayland/X11 support.
+   
+   **What works on Linux:**
+   - ✅ The `kaku` CLI binary for terminal configuration
+   - ✅ All command-line utilities and shell integration tools
+   - ⏳ GUI support is in progress (contributions welcome!)
+   
+   **Ubuntu/KDE Plasma Installation:**
+   ```bash
+   # Install build dependencies
+   sudo apt-get install -y \
+       libwayland-dev libxkbcommon-dev \
+       libx11-dev libxcb1-dev \
+       libxcb-util-dev libxcb-render0-dev \
+       libxcb-shape0-dev libxcb-xfixes0-dev \
+       libxcb-keysyms1-dev libxcb-image0-dev \
+       libfontconfig1-dev libfreetype-dev
+   
+   # Build Kaku
+   cargo build --release -p kaku
+   
+   # The binary will be at target/release/kaku
+   ```
 
-3. **Can Kaku use transparent windows on macOS?**
+3. **Is there a Windows version?**
+
+   Not at the moment. Windows support may come later once the macOS and Linux versions are mature.
+
+4. **Can Kaku use transparent windows on macOS?**
 
    Yes. You can set `window_background_opacity` and optionally `macos_window_background_blur` in `~/.config/kaku/kaku.lua`. Transparent mode now keeps top/right/bottom padding regions visually consistent to avoid transparent gaps.
 
-4. **Why does Kaku fail to start in some virtual macOS environments?**
+5. **Why does Kaku fail to start in some virtual macOS environments?**
 
    This usually means the VM has no usable GPU backend (`failed to create NSOpenGLPixelFormat`).
    Enable VM GPU acceleration, or set `config.front_end = 'WebGpu'` in `~/.config/kaku/kaku.lua`.
