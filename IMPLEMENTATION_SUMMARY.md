@@ -115,33 +115,46 @@ target/release/kaku
 
 ## Future Work
 
-To achieve full Linux GUI support, the following work is needed:
+To achieve full Linux GUI support, the recommended approach is to adapt the upstream WezTerm implementation:
 
-1. **Window Implementation**
+### Port from WezTerm Upstream
+
+Kaku is a fork of [WezTerm](https://github.com/wez/wezterm), which has complete Linux support. The following components can be ported:
+
+1. **Wayland Implementation** (`wezterm/window/src/os/wayland/`)
    - Complete Wayland protocol implementation
-   - X11 fallback support
+   - Compositor integration
+   - Multi-monitor support
+   - Already tested and production-ready
+
+2. **X11 Support** (`wezterm/window/src/os/x11/`)
+   - XCB-based window management
    - Event loop integration
+   - Fallback for systems without Wayland
 
-2. **Desktop Integration**
-   - KDE Plasma theming support
-   - Native notification system (libnotify)
-   - Desktop entry files
+3. **Desktop Integration**
+   - KDE Plasma theming (WezTerm already supports this)
+   - Native notification system (libnotify integration exists in WezTerm)
+   - Desktop entry files and system integration
 
-3. **Shell Integration**
-   - Linux-specific shell setup scripts
+4. **Shell Integration**
+   - Linux-specific shell setup scripts from WezTerm
    - Terminal emulator detection
-   - Path management
+   - Path and environment management
 
-## Breaking Changes
+### Implementation Strategy
 
-None - this is additive functionality only.
+1. Clone upstream WezTerm alongside Kaku
+2. Compare `window/src/os/` directory structures
+3. Port Wayland/X11 modules while preserving Kaku-specific customizations
+4. Adapt to Kaku's streamlined configuration approach
+5. Test on Ubuntu/KDE Plasma (primary target)
 
-## Migration Guide
-
-No migration needed. macOS functionality remains unchanged.
+This approach leverages battle-tested code rather than reimplementing from scratch.
 
 ## References
 
-- Original WezTerm Linux support (upstream)
-- KDE Plasma Wayland protocol documentation
+- Original WezTerm Linux support: https://github.com/wez/wezterm
+- Wayland protocol documentation: https://wayland.freedesktop.org/
+- KDE Plasma Wayland integration: https://community.kde.org/Plasma/Wayland
 - Ubuntu package management guidelines

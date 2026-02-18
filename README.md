@@ -35,9 +35,12 @@
 
 ### Linux (Ubuntu/KDE Plasma)
 
-**📘 See [LINUX.md](LINUX.md) for complete Linux installation and usage guide.**
+**📘 See [LINUX.md](LINUX.md) for complete Linux installation guide**  
+**🎨 See [KDE_INTEGRATION.md](KDE_INTEGRATION.md) for KDE Plasma integration roadmap**
 
-Quick CLI installation:
+Kaku is being designed for deep integration with KDE Plasma desktop environment.
+
+**Quick CLI installation** (Ubuntu/KDE Plasma):
 ```bash
 # Install dependencies
 sudo apt-get install -y libwayland-dev libxkbcommon-dev libx11-dev libxcb1-dev
@@ -47,7 +50,12 @@ cargo build --release -p kaku
 sudo cp target/release/kaku /usr/local/bin/
 ```
 
-**Note**: GUI support is currently in development. CLI tools are fully functional.
+**Current Status**:
+- ✅ CLI tools fully functional
+- ⏳ GUI with KDE Plasma integration in development
+- 🎯 Planned: Auto-theming, KNotifications, KWallet, Activities support
+
+**Target Environment**: KDE Plasma 6.x on Wayland (primary), Plasma 5.27+ supported
 
 ## Usage Guide
 
@@ -115,12 +123,24 @@ Achieved through aggressive stripping of unused features, lazy loading of color 
 
 2. **Is there a Linux version?**
 
-   **Yes!** Linux support is now available for Ubuntu and KDE Plasma-based distributions. Currently, the CLI tools (`kaku` command) are fully functional on Linux. The GUI (`kaku-gui`) requires additional implementation work for Wayland/X11 support.
+   **Yes!** Linux support is now available with **primary focus on KDE Plasma** desktop environment.
    
-   **What works on Linux:**
-   - ✅ The `kaku` CLI binary for terminal configuration
+   **Current Status:**
+   - ✅ The `kaku` CLI binary - fully functional on Linux
    - ✅ All command-line utilities and shell integration tools
-   - ⏳ GUI support is in progress (contributions welcome!)
+   - ⏳ GUI with KDE Plasma integration - in active development
+   
+   **KDE Plasma Integration** (Planned):
+   - 🎨 Auto-detect and apply KDE color schemes
+   - 🔔 KNotifications for native KDE notifications  
+   - 🔐 KWallet integration for secure API key storage
+   - 📋 Plasma Activities support for context-switching
+   - 🎯 Konsole profile compatibility
+   - 🖼️ KDE window decorations and effects
+   
+   **Target Environment**: KDE Plasma 6.x on Wayland (primary), also supports Plasma 5.27+
+   
+   **See [KDE_INTEGRATION.md](KDE_INTEGRATION.md) for the complete integration roadmap**
    
    **Ubuntu/KDE Plasma Installation:**
    ```bash
