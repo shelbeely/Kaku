@@ -1,25 +1,25 @@
 <div align="center">
-  <h1>Kaku</h1>
+  <h1>Kurrent</h1>
   <p><em>A fast, KDE Plasma-native terminal built for AI coding on Linux.</em></p>
 </div>
 
 <p align="center">
-  <a href="https://github.com/tw93/Kaku/stargazers"><img src="https://img.shields.io/github/stars/tw93/Kaku?style=flat-square" alt="Stars"></a>
-  <a href="https://github.com/tw93/Kaku/releases"><img src="https://img.shields.io/github/v/tag/tw93/Kaku?label=version&style=flat-square" alt="Version"></a>
+  <a href="https://github.com/shelbeely/Kurrent/stargazers"><img src="https://img.shields.io/github/stars/shelbeely/Kurrent?style=flat-square" alt="Stars"></a>
+  <a href="https://github.com/shelbeely/Kurrent/releases"><img src="https://img.shields.io/github/v/tag/shelbeely/Kurrent?label=version&style=flat-square" alt="Version"></a>
   <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License"></a>
-  <a href="https://github.com/tw93/Kaku/commits"><img src="https://img.shields.io/github/commit-activity/m/tw93/Kaku?style=flat-square" alt="Commits"></a>
-  <a href="https://twitter.com/HiTw93"><img src="https://img.shields.io/badge/follow-Tw93-red?style=flat-square&logo=Twitter" alt="Twitter"></a>
+  <a href="https://github.com/shelbeely/Kurrent/commits"><img src="https://img.shields.io/github/commit-activity/m/shelbeely/Kurrent?style=flat-square" alt="Commits"></a>
 </p>
 
 <p align="center">
-  <img src="assets/kaku.jpeg" alt="Kaku Screenshot" width="1000" />
+  <img src="assets/kurrent.jpeg" alt="Kurrent Screenshot" width="1000" />
   <br/>
-  Kaku is a deeply customized fork of <a href="https://github.com/wez/wezterm">WezTerm</a>, designed for KDE Plasma and Linux.
+  Kurrent is a deeply customized fork of <a href="https://github.com/wez/wezterm">WezTerm</a>, designed for KDE Plasma and Linux.
 </p>
 
 ## Features
 
 - **KDE Plasma Native**: Deep integration with KDE desktop environment
+- **Hybrid Architecture**: Rust performance + Kirigami UI chrome
 - **Zero Config**: Defaults with JetBrains Mono, modern themes, and optimized rendering
 - **Built-in Shell Suite**: Pre-loaded Starship, z, Delta, syntax highlighting, autocompletions
 - **Fast & Lightweight**: Optimized for Linux, instant startup, GPU-accelerated rendering
@@ -30,9 +30,10 @@
 ### Linux (KDE Plasma)
 
 **📘 See [LINUX.md](LINUX.md) for complete installation guide**  
-**🎨 See [KDE_INTEGRATION.md](KDE_INTEGRATION.md) for KDE Plasma integration roadmap**
+**🎨 See [KDE_INTEGRATION.md](KDE_INTEGRATION.md) for KDE Plasma integration roadmap**  
+**🏗️ See [ARCHITECTURE.md](ARCHITECTURE.md) for hybrid Rust+Kirigami architecture**
 
-Kaku is being designed for deep integration with KDE Plasma desktop environment.
+Kurrent is being designed for deep integration with KDE Plasma desktop environment.
 
 **Quick CLI installation** (Ubuntu/KDE Plasma):
 ```bash
@@ -40,8 +41,8 @@ Kaku is being designed for deep integration with KDE Plasma desktop environment.
 sudo apt-get install -y libwayland-dev libxkbcommon-dev libx11-dev libxcb1-dev
 
 # Build and install
-cargo build --release -p kaku
-sudo cp target/release/kaku /usr/local/bin/
+cargo build --release -p kurrent
+sudo cp target/release/kurrent /usr/local/bin/
 ```
 
 **Current Status**:
@@ -53,7 +54,7 @@ sudo cp target/release/kaku /usr/local/bin/
 
 ## Usage Guide
 
-Kaku uses intuitive Linux desktop shortcuts:
+Kurrent uses intuitive Linux desktop shortcuts:
 
 | Action | Shortcut |
 | :--- | :--- |
@@ -74,7 +75,7 @@ Kaku uses intuitive Linux desktop shortcuts:
 
 ## Configuration
 
-Kaku comes with a carefully curated suite of CLI tools, pre-configured for immediate productivity:
+Kurrent comes with a carefully curated suite of CLI tools, pre-configured for immediate productivity:
 
 - **Starship**: A fast, customizable prompt showing git status, package versions, and execution time
 - **z (zoxide)**: A smarter cd command that learns your most used directories
@@ -83,11 +84,11 @@ Kaku comes with a carefully curated suite of CLI tools, pre-configured for immed
 - **Syntax Highlighting**: Real-time command validation and coloring
 - **Autosuggestions**: Intelligent, history-based completions
 
-Kaku uses `~/.config/kaku/kaku.lua` for configuration, fully compatible with WezTerm's Lua API.
+Kurrent uses `~/.config/kurrent/kurrent.lua` for configuration, fully compatible with WezTerm's Lua API.
 
-Run `kaku` in your terminal to see all available commands such as `kaku update`, `kaku reset`, and `kaku config`.
+Run `kurrent` in your terminal to see all available commands such as `kurrent update`, `kurrent reset`, and `kurrent config`.
 
-## Why Kaku for Linux/KDE Plasma?
+## Why Kurrent for Linux/KDE Plasma?
 
 After using various terminal emulators on Linux (Konsole, Alacritty, Kitty), we wanted a terminal that:
 - Feels native to KDE Plasma
@@ -96,7 +97,7 @@ After using various terminal emulators on Linux (Konsole, Alacritty, Kitty), we 
 - Leverages KDE technologies (KWallet, KNotifications, etc.)
 - Is fast and GPU-accelerated
 
-WezTerm provides a robust foundation, and Kaku builds on that with practical defaults for Linux/KDE Plasma users, while keeping full Lua-based customization.
+WezTerm provides a robust foundation, and Kurrent builds on that with practical defaults for Linux/KDE Plasma users, while keeping full Lua-based customization.
 
 ## Performance
 
@@ -117,7 +118,7 @@ Achieved through feature pruning, lazy loading, and Linux-specific optimizations
 
 2. **Is there a Linux version?**
 
-   **Yes!** You're looking at it. Kaku is now a Linux-first terminal with **primary focus on KDE Plasma** desktop environment.
+   **Yes!** You're looking at it. Kurrent is now a Linux-first terminal with **primary focus on KDE Plasma** desktop environment.
    
    **Current Status:**
    - ✅ CLI tools - fully functional on Linux
@@ -132,14 +133,14 @@ Achieved through feature pruning, lazy loading, and Linux-specific optimizations
        libx11-dev libxcb1-dev
    
    # Build
-   cargo build --release -p kaku
+   cargo build --release -p kurrent
    ```
    
    **See [LINUX.md](LINUX.md) and [KDE_INTEGRATION.md](KDE_INTEGRATION.md) for details**
 
 3. **What about Windows or macOS?**
 
-   Kaku is now Linux-only, focusing on KDE Plasma integration. For macOS or Windows, use upstream [WezTerm](https://github.com/wez/wezterm).
+   Kurrent is now Linux-only, focusing on KDE Plasma integration. For macOS or Windows, use upstream [WezTerm](https://github.com/wez/wezterm).
 
 4. **Which desktop environments are supported?**
 
@@ -152,19 +153,19 @@ Achieved through feature pruning, lazy loading, and Linux-specific optimizations
 
 ## Contributors
 
-Big thanks to all contributors who helped build Kaku. Go follow them! ❤️
+Big thanks to all contributors who helped build Kurrent. Go follow them! ❤️
 
-<a href="https://github.com/tw93/Kaku/graphs/contributors">
+<a href="https://github.com/tw93/Kurrent/graphs/contributors">
   <img src="./CONTRIBUTORS.svg?v=2" width="1000" />
 </a>
 
 ## Support
 
-- If Kaku helped you, star the repo or [share it](https://twitter.com/intent/tweet?url=https://github.com/tw93/Kaku&text=Kaku%20-%20A%20fast%20terminal%20built%20for%20AI%20coding.) with friends.
+- If Kurrent helped you, star the repo or [share it](https://twitter.com/intent/tweet?url=https://github.com/tw93/Kurrent&text=Kurrent%20-%20A%20fast%20terminal%20built%20for%20AI%20coding.) with friends.
 - Got ideas or found bugs? Open an issue/PR or check [CONTRIBUTING.md](CONTRIBUTING.md) for details.
-- Like Kaku? <a href="https://miaoyan.app/cats.html?name=Kaku" target="_blank">Buy Tw93 a Coke</a> to support the project! 🥤 Supporters below.
+- Like Kurrent? <a href="https://miaoyan.app/cats.html?name=Kurrent" target="_blank">Buy Tw93 a Coke</a> to support the project! 🥤 Supporters below.
 
-<a href="https://miaoyan.app/cats.html?name=Kaku"><img src="https://miaoyan.app/assets/sponsors.svg" width="1000" loading="lazy" /></a>
+<a href="https://miaoyan.app/cats.html?name=Kurrent"><img src="https://miaoyan.app/assets/sponsors.svg" width="1000" loading="lazy" /></a>
 
 ## License
 

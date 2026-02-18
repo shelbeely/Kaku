@@ -38,10 +38,10 @@ dev:
 		-x "run $(BUILD_OPTS) -p kaku-gui --"
 
 build:
-	cargo build $(BUILD_OPTS) -p kaku -p kaku-gui -p wezterm-mux-server-impl
+	cargo build $(BUILD_OPTS) -p kurrent -p kurrent-gui -p wezterm-mux-server-impl
 
 fmt:
-	cargo +nightly fmt -p kaku -p kaku-gui -p mux -p wezterm-term -p termwiz -p config -p wezterm-font
+	cargo +nightly fmt -p kurrent -p kurrent-gui -p mux -p wezterm-term -p termwiz -p config -p wezterm-font
 
 fmt-check:
 	cargo +nightly fmt -p kaku -p kaku-gui -p mux -p wezterm-term -p termwiz -p config -p wezterm-font -- --check
