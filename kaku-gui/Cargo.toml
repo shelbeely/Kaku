@@ -107,24 +107,6 @@ wgpu.workspace = true
 window-funcs.workspace = true
 window.workspace = true
 
-[target.'cfg(target_os="macos")'.dependencies]
-cocoa.workspace = true
-
-[target.'cfg(windows)'.dependencies]
-shared_library.workspace = true
-winapi = { workspace=true, features = [
-    "winuser",
-    "consoleapi",
-    "handleapi",
-    "fileapi",
-    "namedpipeapi",
-    "synchapi",
-    "winsock2",
-]}
-windows = { workspace=true, features = [
-    "Win32_UI_Shell",
-]}
-
 [dev-dependencies]
 benchmarking.workspace = true
 env_logger.workspace = true

@@ -1,11 +1,18 @@
-#[cfg(target_os = "macos")]
-pub mod macos;
-#[cfg(target_os = "macos")]
-pub use self::macos::*;
+// Linux support: Wayland and X11
+#[cfg(all(unix, not(target_os = "macos")))]
+pub mod x11;
+#[cfg(all(unix, not(target_os = "macos")))]
+pub mod x_and_wayland;
+#[cfg(all(unix, not(target_os = "macos")))]
+pub mod xdg_desktop_portal;
+#[cfg(all(unix, not(target_os = "macos")))]
+pub mod xkeysyms;
 
-#[cfg(target_os = "linux")]
-pub mod linux;
-#[cfg(target_os = "linux")]
-pub use self::linux::*;
+#[cfg(all(unix, not(target_os = "macos"), feature = "wayland"))]
+pub mod wayland;
+
+// Export Linux implementations
+#[cfg(all(unix, not(target_os = "macos")))]
+pub use x_and_wayland::*;
 
 pub mod parameters;

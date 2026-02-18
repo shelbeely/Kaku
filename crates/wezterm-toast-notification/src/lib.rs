@@ -1,5 +1,3 @@
-#[cfg(target_os = "macos")]
-mod macos;
 #[cfg(target_os = "linux")]
 mod linux;
 
@@ -17,12 +15,10 @@ impl ToastNotification {
     }
 }
 
-#[cfg(target_os = "macos")]
-use macos as backend;
 #[cfg(target_os = "linux")]
 use linux as backend;
-#[cfg(not(any(target_os = "macos", target_os = "linux")))]
-compile_error!("Unsupported platform for toast notifications");
+#[cfg(not(target_os = "linux"))]
+compile_error!("Unsupported platform for toast notifications. Only Linux is supported.");
 
 pub fn show(notif: ToastNotification) {
     if let Err(err) = backend::show_notif(notif) {
@@ -47,6 +43,3 @@ pub fn persistent_toast_notification(title: &str, message: &str) {
         timeout: None,
     });
 }
-
-#[cfg(target_os = "macos")]
-pub use macos::initialize as macos_initialize;

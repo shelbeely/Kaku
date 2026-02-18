@@ -1,6 +1,6 @@
 <div align="center">
   <h1>Kaku</h1>
-  <p><em>A fast, out-of-the-box terminal built for AI coding.</em></p>
+  <p><em>A fast, KDE Plasma-native terminal built for AI coding on Linux.</em></p>
 </div>
 
 <p align="center">
@@ -14,28 +14,22 @@
 <p align="center">
   <img src="assets/kaku.jpeg" alt="Kaku Screenshot" width="1000" />
   <br/>
-  Kaku is a deeply customized fork of <a href="https://github.com/wez/wezterm">WezTerm</a>, designed for an out-of-the-box experience.
+  Kaku is a deeply customized fork of <a href="https://github.com/wez/wezterm">WezTerm</a>, designed for KDE Plasma and Linux.
 </p>
 
 ## Features
 
-- **Zero Config**: Defaults with JetBrains Mono, opencode theme, macOS font rendering, and low-res font sizing.
-- **Built-in Shell Suite**: Pre-loaded Starship, z, Delta, syntax highlighting, autocompletions, and zsh history.
-- **Fast & Lightweight**: 40% smaller binary, instant startup, lazy loading, stripped-down GPU-accelerated core.
-- **WezTerm-Compatible Config**: Use WezTerm's Lua config directly with full API compatibility and no migration.
+- **KDE Plasma Native**: Deep integration with KDE desktop environment
+- **Zero Config**: Defaults with JetBrains Mono, modern themes, and optimized rendering
+- **Built-in Shell Suite**: Pre-loaded Starship, z, Delta, syntax highlighting, autocompletions
+- **Fast & Lightweight**: Optimized for Linux, instant startup, GPU-accelerated rendering
+- **WezTerm-Compatible Config**: Use WezTerm's Lua config directly with full API compatibility
 
 ## Quick Start
 
-### macOS
+### Linux (KDE Plasma)
 
-1. [Download Kaku DMG](https://github.com/tw93/Kaku/releases/latest) & Drag to Applications
-2. Or install with Homebrew: `brew install tw93/tap/kakuku`
-3. Open Kaku. The app is notarized by Apple, so it opens without security warnings
-4. On first launch, Kaku will automatically set up your shell environment
-
-### Linux (Ubuntu/KDE Plasma)
-
-**📘 See [LINUX.md](LINUX.md) for complete Linux installation guide**  
+**📘 See [LINUX.md](LINUX.md) for complete installation guide**  
 **🎨 See [KDE_INTEGRATION.md](KDE_INTEGRATION.md) for KDE Plasma integration roadmap**
 
 Kaku is being designed for deep integration with KDE Plasma desktop environment.
@@ -52,29 +46,28 @@ sudo cp target/release/kaku /usr/local/bin/
 
 **Current Status**:
 - ✅ CLI tools fully functional
-- ⏳ GUI with KDE Plasma integration in development
-- 🎯 Planned: Auto-theming, KNotifications, KWallet, Activities support
+- 🔧 GUI with full Wayland/X11 support - **IN ACTIVE DEVELOPMENT**
+- 🎯 KDE Plasma integration roadmap ready
 
 **Target Environment**: KDE Plasma 6.x on Wayland (primary), Plasma 5.27+ supported
 
 ## Usage Guide
 
-Kaku comes with intuitive macOS-native shortcuts:
+Kaku uses intuitive Linux desktop shortcuts:
 
 | Action | Shortcut |
 | :--- | :--- |
-| New Tab | `Cmd + T` |
-| New Window | `Cmd + N` |
-| Close Tab/Pane | `Cmd + W` |
-| Navigate Tabs | `Cmd + Shift + [`, `Cmd + Shift + ]` or `Cmd + 1-9` |
-| Navigate Panes | `Cmd + Opt + Arrows` |
-| Split Pane Vertical | `Cmd + D` |
-| Split Pane Horizontal | `Cmd + Shift + D` |
-| Toggle Split Direction | `Cmd + Shift + S` |
-| Zoom/Unzoom Pane | `Cmd + Shift + Enter` |
-| Resize Pane | `Cmd + Ctrl + Arrows` |
-| Clear Screen | `Cmd + K` |
-| Font Size | `Cmd + +`, `Cmd + -`, `Cmd + 0` |
+| New Tab | `Ctrl + Shift + T` |
+| New Window | `Ctrl + Shift + N` |
+| Close Tab/Pane | `Ctrl + Shift + W` |
+| Navigate Tabs | `Ctrl + PgUp`, `Ctrl + PgDn` or `Alt + 1-9` |
+| Navigate Panes | `Ctrl + Shift + Arrows` |
+| Split Pane Vertical | `Ctrl + Shift + D` |
+| Split Pane Horizontal | `Ctrl + Shift + H` |
+| Zoom/Unzoom Pane | `Ctrl + Shift + Z` |
+| Resize Pane | `Ctrl + Alt + Arrows` |
+| Clear Screen | `Ctrl + Shift + K` |
+| Font Size | `Ctrl + +`, `Ctrl + -`, `Ctrl + 0` |
 | Smart Jump | `z <dir>` |
 | Smart Select | `z -l <dir>` |
 | Recent Dirs | `z -t` |
@@ -83,94 +76,79 @@ Kaku comes with intuitive macOS-native shortcuts:
 
 Kaku comes with a carefully curated suite of CLI tools, pre-configured for immediate productivity:
 
-- **Starship**: A fast, customizable prompt showing git status, package versions, and execution time.
-- **z**: A smarter cd command that learns your most used directories for instant navigation.
-- **Delta**: A syntax-highlighting pager for git, diff, and grep output.
-- **zsh-completions**: Extended command and subcommand completion definitions.
-- **Syntax Highlighting**: Real-time command validation and coloring.
-- **Autosuggestions**: Intelligent, history-based completions similar to Fish shell.
+- **Starship**: A fast, customizable prompt showing git status, package versions, and execution time
+- **z (zoxide)**: A smarter cd command that learns your most used directories
+- **Delta**: A syntax-highlighting pager for git, diff, and grep output
+- **zsh-completions**: Extended command and subcommand completion definitions
+- **Syntax Highlighting**: Real-time command validation and coloring
+- **Autosuggestions**: Intelligent, history-based completions
 
-Kaku uses `~/.config/kaku/kaku.lua` for configuration, fully compatible with WezTerm's Lua API, with built-in defaults at `Kaku.app/Contents/Resources/kaku.lua` as fallback.
+Kaku uses `~/.config/kaku/kaku.lua` for configuration, fully compatible with WezTerm's Lua API.
 
 Run `kaku` in your terminal to see all available commands such as `kaku update`, `kaku reset`, and `kaku config`.
 
-## Why Kaku?
+## Why Kaku for Linux/KDE Plasma?
 
-I heavily rely on the CLI for both work and personal projects. Tools I've built, like [Mole](https://github.com/tw93/mole) and [Pake](https://github.com/tw93/pake), reflect this.
+After using various terminal emulators on Linux (Konsole, Alacritty, Kitty), we wanted a terminal that:
+- Feels native to KDE Plasma
+- Has modern AI coding features built-in
+- Provides a great out-of-the-box experience
+- Leverages KDE technologies (KWallet, KNotifications, etc.)
+- Is fast and GPU-accelerated
 
-I used Alacritty for years and learned to value speed and simplicity. As my workflow shifted toward AI-assisted coding, I wanted stronger tab and pane ergonomics. I also explored Kitty, Ghostty, Warp, and iTerm2. Each is strong in different areas, but I still wanted a setup that matched my own balance of performance, defaults, and control.
+WezTerm provides a robust foundation, and Kaku builds on that with practical defaults for Linux/KDE Plasma users, while keeping full Lua-based customization.
 
-WezTerm is robust and highly hackable, and I am grateful for its engine and ecosystem. Kaku builds on that foundation with practical defaults for day one use, while keeping full Lua-based customization and a fast, lightweight feel.
+## Performance
 
-So I built Kaku to be that environment: fast, polished, and ready to work.
+| Metric | Target |
+| :--- | :--- |
+| **Executable Size** | ~30-40 MB (optimized for Linux) |
+| **Launch Latency** | Instant |
+| **Shell Bootstrap** | ~50-100ms |
+| **GPU Rendering** | Vulkan on Linux |
 
-### Performance
-
-| Metric | Upstream | Kaku | Methodology |
-| :--- | :--- | :--- | :--- |
-| **Executable Size** | ~67 MB | ~40 MB | Aggressive symbol stripping & feature pruning |
-| **Resources Volume** | ~100 MB | ~80 MB | Asset optimization & lazy-loaded assets |
-| **Launch Latency** | Standard | Instant | Just-in-time initialization |
-| **Shell Bootstrap** | ~200ms | ~100ms | Optimized environment provisioning |
-
-Achieved through aggressive stripping of unused features, lazy loading of color schemes, and shell optimizations.
+Achieved through feature pruning, lazy loading, and Linux-specific optimizations.
 
 ## FAQ
 
-1. **Why is the Homebrew cask named `kakuku` instead of `kaku`?**
+1. **Why focus on KDE Plasma?**
 
-   The name `kaku` conflicts with another package in Homebrew's official repository (an unmaintained music player). `kakuku` is a cute variation that's easy to remember.
+   KDE Plasma provides excellent Wayland support, rich DBus APIs for integration, and powerful frameworks (KNotifications, KWallet, KIO). It's the perfect environment for a deeply integrated terminal experience.
 
 2. **Is there a Linux version?**
 
-   **Yes!** Linux support is now available with **primary focus on KDE Plasma** desktop environment.
+   **Yes!** You're looking at it. Kaku is now a Linux-first terminal with **primary focus on KDE Plasma** desktop environment.
    
    **Current Status:**
-   - ✅ The `kaku` CLI binary - fully functional on Linux
-   - ✅ All command-line utilities and shell integration tools
-   - ⏳ GUI with KDE Plasma integration - in active development
+   - ✅ CLI tools - fully functional on Linux
+   - 🔧 **GUI with full Wayland/X11 support - IN ACTIVE DEVELOPMENT**
+   - 🎯 KDE Plasma integration roadmap ready
    
-   **KDE Plasma Integration** (Planned):
-   - 🎨 Auto-detect and apply KDE color schemes
-   - 🔔 KNotifications for native KDE notifications  
-   - 🔐 KWallet integration for secure API key storage
-   - 📋 Plasma Activities support for context-switching
-   - 🎯 Konsole profile compatibility
-   - 🖼️ KDE window decorations and effects
-   
-   **Target Environment**: KDE Plasma 6.x on Wayland (primary), also supports Plasma 5.27+
-   
-   **See [KDE_INTEGRATION.md](KDE_INTEGRATION.md) for the complete integration roadmap**
-   
-   **Ubuntu/KDE Plasma Installation:**
+   **Installation:**
    ```bash
    # Install build dependencies
    sudo apt-get install -y \
        libwayland-dev libxkbcommon-dev \
-       libx11-dev libxcb1-dev \
-       libxcb-util-dev libxcb-render0-dev \
-       libxcb-shape0-dev libxcb-xfixes0-dev \
-       libxcb-keysyms1-dev libxcb-image0-dev \
-       libfontconfig1-dev libfreetype-dev
+       libx11-dev libxcb1-dev
    
-   # Build Kaku
+   # Build
    cargo build --release -p kaku
-   
-   # The binary will be at target/release/kaku
    ```
+   
+   **See [LINUX.md](LINUX.md) and [KDE_INTEGRATION.md](KDE_INTEGRATION.md) for details**
 
-3. **Is there a Windows version?**
+3. **What about Windows or macOS?**
 
-   Not at the moment. Windows support may come later once the macOS and Linux versions are mature.
+   Kaku is now Linux-only, focusing on KDE Plasma integration. For macOS or Windows, use upstream [WezTerm](https://github.com/wez/wezterm).
 
-4. **Can Kaku use transparent windows on macOS?**
+4. **Which desktop environments are supported?**
 
-   Yes. You can set `window_background_opacity` and optionally `macos_window_background_blur` in `~/.config/kaku/kaku.lua`. Transparent mode now keeps top/right/bottom padding regions visually consistent to avoid transparent gaps.
+   **Primary**: KDE Plasma 6.x on Wayland  
+   **Supported**: KDE Plasma 5.27+, other desktop environments (GNOME, XFCE) should work but KDE integration features won't be available.
 
-5. **Why does Kaku fail to start in some virtual macOS environments?**
+5. **Can I import my Konsole profiles?**
 
-   This usually means the VM has no usable GPU backend (`failed to create NSOpenGLPixelFormat`).
-   Enable VM GPU acceleration, or set `config.front_end = 'WebGpu'` in `~/.config/kaku/kaku.lua`.
+   Yes! This is planned in our KDE integration roadmap. Konsole profile compatibility is a priority feature.
 
 ## Contributors
 
