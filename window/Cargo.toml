@@ -31,10 +31,12 @@ bitflags.workspace = true
 euclid.workspace = true
 guillotiere.workspace = true
 lazy_static.workspace = true
+libc.workspace = true
 libloading.workspace = true
 line_drawing.workspace = true
 log.workspace = true
 metrics.workspace = true
+mio.workspace = true
 promise.workspace = true
 raw-window-handle.workspace = true
 resize.workspace = true
@@ -48,12 +50,19 @@ wezterm-color-types.workspace = true
 wezterm-font.workspace = true
 wezterm-input-types.workspace = true
 
-[target.'cfg(target_os="macos")'.dependencies]
-cgl.workspace = true
-cocoa.workspace = true
-core-foundation.workspace = true
-core-graphics.workspace = true
-objc.workspace = true
-objc2-core-graphics.workspace = true
-plist.workspace = true
-shlex.workspace = true
+[target.'cfg(unix)'.dependencies]
+filedescriptor.workspace = true
+futures-lite.workspace = true
+futures-util.workspace = true
+nix.workspace = true
+wayland-backend.workspace = true
+wayland-client.workspace = true
+wayland-egl.workspace = true
+wayland-protocols.workspace = true
+wayland-protocols-plasma.workspace = true
+x11.workspace = true
+xcb = { workspace = true, features = ["dri2", "randr", "render", "present", "xkb"] }
+xcb-imdkit.workspace = true
+xkbcommon = { workspace = true, features = ["x11", "wayland"] }
+smithay-client-toolkit.workspace = true
+zbus.workspace = true
