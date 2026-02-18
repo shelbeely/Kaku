@@ -84,11 +84,20 @@ impl KWallet {
         // Ensure the Kurrent folder exists
         let has_folder: bool = proxy
             .call("hasFolder", &(handle, KURRENT_FOLDER, APP_ID))
-            .unwrap_or(false);
+            .unwrap_or_else(|e| {
+                log::warn!("Failed to check KWallet folder existence: {}", e);
+                false
+            });
         if !has_folder {
-            let _created: bool = proxy
+            let created: bool = proxy
                 .call("createFolder", &(handle, KURRENT_FOLDER, APP_ID))
-                .unwrap_or(false);
+                .unwrap_or_else(|e| {
+                    log::warn!("Failed to create KWallet folder '{}': {}", KURRENT_FOLDER, e);
+                    false
+                });
+            if !created {
+                log::warn!("KWallet folder '{}' could not be created", KURRENT_FOLDER);
+            }
         }
 
         Ok(Self { handle, proxy })

@@ -73,8 +73,11 @@ pub fn parse_kdeglobals() -> Result<Option<String>> {
         return Ok(None);
     }
     let mut conf = Ini::new();
-    conf.load(path.to_str().unwrap_or_default())
-        .map_err(|e| anyhow::anyhow!("Failed to parse kdeglobals: {}", e))?;
+    conf.load(
+        path.to_str()
+            .ok_or_else(|| anyhow::anyhow!("kdeglobals path contains invalid UTF-8"))?,
+    )
+    .map_err(|e| anyhow::anyhow!("Failed to parse kdeglobals: {}", e))?;
     Ok(conf.get("general", "colorscheme"))
 }
 
@@ -111,8 +114,11 @@ fn read_color(conf: &Ini, section: &str, key: &str) -> Rgb {
 /// Parse a `.colors` scheme file into a `KdeColorScheme`
 pub fn parse_color_scheme_file(path: &Path, name: &str) -> Result<KdeColorScheme> {
     let mut conf = Ini::new();
-    conf.load(path.to_str().unwrap_or_default())
-        .map_err(|e| anyhow::anyhow!("Failed to parse color scheme {}: {}", path.display(), e))?;
+    conf.load(
+        path.to_str()
+            .ok_or_else(|| anyhow::anyhow!("Color scheme path contains invalid UTF-8: {:?}", path))?,
+    )
+    .map_err(|e| anyhow::anyhow!("Failed to parse color scheme {}: {}", path.display(), e))?;
 
     let display_name = conf
         .get("general", "name")

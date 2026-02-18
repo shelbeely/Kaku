@@ -191,7 +191,10 @@ pub fn is_dnd_active() -> Result<bool> {
     // Plasma exposes inhibition state; if it fails, assume DND is off
     let inhibited: bool = proxy
         .get_property("Inhibited")
-        .unwrap_or(false);
+        .unwrap_or_else(|e| {
+            log::debug!("Could not read DND inhibition state: {}", e);
+            false
+        });
     Ok(inhibited)
 }
 

@@ -37,8 +37,12 @@ Kirigami.ApplicationWindow {
                 shortcut: "Ctrl+Shift+N"
                 onTriggered: {
                     var component = Qt.createComponent("qrc:/qml/main.qml");
-                    var window = component.createObject(null);
-                    if (window) window.show();
+                    if (component.status === Component.Ready) {
+                        var window = component.createObject(null);
+                        if (window) window.show();
+                    } else {
+                        console.error("Failed to create window:", component.errorString());
+                    }
                 }
             },
             Kirigami.Action {

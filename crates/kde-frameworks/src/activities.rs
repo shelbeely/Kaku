@@ -108,12 +108,19 @@ where
     match iter {
         Ok(iter) => {
             for signal in iter {
-                if let Ok(body) = signal.body().deserialize::<String>() {
-                    let id = body;
-                    let name: String = proxy
-                        .call("ActivityName", &(&*id,))
-                        .unwrap_or_else(|_| id.clone());
-                    callback(Activity { id, name });
+                match signal.body().deserialize::<String>() {
+                    Ok(id) => {
+                        let name: String = proxy
+                            .call("ActivityName", &(&*id,))
+                            .unwrap_or_else(|e| {
+                                log::warn!("Failed to get name for activity {}: {}", id, e);
+                                id.clone()
+                            });
+                        callback(Activity { id, name });
+                    }
+                    Err(e) => {
+                        log::warn!("Failed to deserialize activity change signal: {}", e);
+                    }
                 }
             }
         }

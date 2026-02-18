@@ -22,7 +22,7 @@ pub fn show_notif(notif: ToastNotification) -> Result<(), Box<dyn std::error::Er
     match cmd.output() {
         Ok(output) if output.status.success() => {
             if let Some(url) = notif.url.as_deref() {
-                // Open the URL in the default browser after showing the notification
+                log::info!("Opening notification URL: {}", url);
                 wezterm_open_url::open_url(url);
             }
             Ok(())
