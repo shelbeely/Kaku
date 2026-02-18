@@ -1,0 +1,23 @@
+[Desktop Entry]
+Type=Application
+Name=Kurrent Terminal
+GenericName=Terminal Emulator
+Comment=KDE Plasma-native terminal emulator for AI-assisted coding
+Exec=kurrent-kirigami-ui
+Icon=org.kde.kurrent
+Terminal=false
+Categories=System;TerminalEmulator;
+Keywords=terminal;console;shell;command line;ai;coding;
+MimeType=application/x-shellscript;
+StartupNotify=true
+StartupWMClass=kurrent
+X-KDE-FormFactor=desktop;
+Actions=NewWindow;NewTab;
+
+[Desktop Action NewWindow]
+Name=New Window
+Exec=kurrent-kirigami-ui
+
+[Desktop Action NewTab]
+Name=New Tab
+Exec=kurrent-kirigami-ui --new-tab

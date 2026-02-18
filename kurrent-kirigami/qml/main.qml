@@ -1,7 +1,10 @@
 // Main QML file for Kurrent Kirigami UI
 //
-// This provides the window chrome, settings UI, and other Qt/QML-based
-// interface elements, while the terminal rendering is handled by Rust.
+// Follows the KDE Human Interface Guidelines:
+// - All user-visible strings wrapped in i18n() for translation
+// - Accessible.name / Accessible.description on interactive elements
+// - Standard KDE keyboard shortcuts
+// - KAboutData-driven About page
 
 import QtQuick
 import QtQuick.Controls as QQC2
@@ -11,56 +14,55 @@ import org.kde.kirigami as Kirigami
 Kirigami.ApplicationWindow {
     id: root
 
-    title: "Kurrent Terminal"
+    title: i18n("Kurrent Terminal")
     width: 1200
     height: 800
 
-    // The Rust terminal renderer will be embedded as a custom QQuickItem
-    // provided by terminalBridge once the shared library is loaded.
     pageStack.initialPage: terminalPage
 
-    // Global drawer for navigation
+    // Global drawer for navigation (KDE HIG: use GlobalDrawer for top-level nav)
     globalDrawer: Kirigami.GlobalDrawer {
-        title: "Kurrent"
-        titleIcon: "utilities-terminal"
-
+        title: i18n("Kurrent")
+        titleIcon: "org.kde.kurrent"
+        isMenu: true
         actions: [
             Kirigami.Action {
-                text: "New Tab"
+                text: i18n("New Tab")
                 icon.name: "tab-new"
-                shortcut: "Ctrl+Shift+T"
+                shortcut: StandardKey.AddTab
                 onTriggered: terminalBridge.createNewTab()
+                Accessible.name: i18n("Create a new terminal tab")
             },
             Kirigami.Action {
-                text: "New Window"
+                text: i18n("New Window")
                 icon.name: "window-new"
                 shortcut: "Ctrl+Shift+N"
                 onTriggered: {
                     var component = Qt.createComponent("qrc:/qml/main.qml");
                     if (component.status === Component.Ready) {
-                        var window = component.createObject(null);
-                        if (window) window.show();
+                        var win = component.createObject(null);
+                        if (win) win.show();
                     } else {
                         console.error("Failed to create window:", component.errorString());
                     }
                 }
+                Accessible.name: i18n("Open a new terminal window")
             },
             Kirigami.Action {
                 separator: true
             },
             Kirigami.Action {
-                text: "Settings"
+                text: i18n("Settings…")
                 icon.name: "settings-configure"
-                onTriggered: {
-                    pageStack.push(settingsComponent)
-                }
+                shortcut: StandardKey.Preferences
+                onTriggered: pageStack.push(settingsComponent)
+                Accessible.name: i18n("Open application settings")
             },
             Kirigami.Action {
-                text: "About"
+                text: i18n("About Kurrent")
                 icon.name: "help-about"
-                onTriggered: {
-                    pageStack.push(aboutComponent)
-                }
+                onTriggered: pageStack.push(aboutComponent)
+                Accessible.name: i18n("Show application information")
             }
         ]
     }
@@ -70,20 +72,19 @@ Kirigami.ApplicationWindow {
         id: terminalPage
 
         Kirigami.Page {
-            title: "Terminal"
+            title: i18n("Terminal")
+            Accessible.name: i18n("Terminal page")
 
-            // Placeholder shown until the Rust QQuickItem renderer is linked.
-            // In the full build this is replaced by the embedded GPU surface.
             ColumnLayout {
                 anchors.fill: parent
 
                 Kirigami.PlaceholderMessage {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-
                     icon.name: "utilities-terminal"
-                    text: "Terminal Renderer"
-                    explanation: "The Rust-based terminal will be embedded here.\nBuild with libkurrent_gui.so to enable rendering."
+                    text: i18n("Terminal Renderer")
+                    explanation: i18n("The Rust-based terminal will be embedded here.\nBuild with libkurrent_gui.so to enable rendering.")
+                    Accessible.name: i18n("Terminal rendering area placeholder")
                 }
             }
         }
@@ -93,28 +94,27 @@ Kirigami.ApplicationWindow {
     Component {
         id: settingsComponent
 
-        SettingsPage {
-            // Defined in SettingsPage.qml
-        }
+        SettingsPage {}
     }
 
-    // About page component
+    // About page driven by KAboutData set in main.cpp
     Component {
         id: aboutComponent
 
         Kirigami.AboutPage {
             aboutData: {
-                "displayName": "Kurrent Terminal",
+                "displayName": i18n("Kurrent Terminal"),
                 "productName": "kurrent",
                 "componentName": "kurrent",
-                "shortDescription": "KDE Plasma-native terminal for AI coding",
+                "shortDescription": i18n("KDE Plasma-native terminal emulator for AI-assisted coding"),
                 "homepage": "https://github.com/shelbeely/Kaku",
                 "bugAddress": "https://github.com/shelbeely/Kaku/issues",
                 "version": "0.3.1",
                 "license": "MIT",
-                "copyrightStatement": "© 2024-2026 Kurrent Contributors",
-                "desktopFileName": "kurrent"
+                "copyrightStatement": i18n("© 2024–2026 Kurrent Contributors"),
+                "desktopFileName": "org.kde.kurrent"
             }
+            Accessible.name: i18n("About Kurrent Terminal")
         }
     }
 }

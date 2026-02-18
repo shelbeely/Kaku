@@ -45,7 +45,7 @@ impl Notification {
         Self {
             title: title.into(),
             body: body.into(),
-            icon: Some("utilities-terminal".to_string()),
+            icon: Some(kde_dbus::app::APP_ID.to_string()),
             urgency: Urgency::Normal,
             timeout: None,
             actions: Vec::new(),
@@ -121,7 +121,7 @@ pub fn show_notification(notification: &Notification) -> Result<u32> {
         .call(
             "Notify",
             &(
-                "Kurrent",           // app_name
+                kde_dbus::app::APP_NAME, // app_name
                 0u32,                // replaces_id
                 icon,                // app_icon
                 &*notification.title, // summary

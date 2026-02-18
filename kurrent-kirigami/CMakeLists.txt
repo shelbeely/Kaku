@@ -4,10 +4,22 @@ project(kurrent-kirigami VERSION 0.3.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Find Qt6 and KDE Frameworks
+# KDE Extra CMake Modules
 find_package(ECM REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
 
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+include(ECMInstallIcons)
+include(ECMSetupVersion)
+
+ecm_setup_version(${PROJECT_VERSION}
+    VARIABLE_PREFIX KURRENT
+    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/kurrent-version.h"
+)
+
+# Find Qt6 and KDE Frameworks
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Quick
@@ -27,7 +39,7 @@ qt_add_resources(QML_RESOURCES
     qml/qml.qrc
 )
 
-# Main executable (Qt/QML UI chrome)
+# Main executable
 add_executable(kurrent-kirigami-ui
     src/main.cpp
     src/terminalbridge.cpp
@@ -46,17 +58,24 @@ target_link_libraries(kurrent-kirigami-ui
     KF6::Config
 )
 
-# Install
+# Install binary
 install(TARGETS kurrent-kirigami-ui
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    DESTINATION ${KDE_INSTALL_BINDIR}
 )
 
-# Desktop file
-install(FILES kurrent.desktop
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/applications
+# Install XDG desktop entry
+install(FILES org.kde.kurrent.desktop
+    DESTINATION ${KDE_INSTALL_APPDIR}
 )
 
-# AppStream metadata
-install(FILES kurrent.appdata.xml
-    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/metainfo
+# Install AppStream metainfo
+install(FILES org.kde.kurrent.metainfo.xml
+    DESTINATION ${KDE_INSTALL_METAINFODIR}
+)
+
+# Install scalable application icon
+ecm_install_icons(
+    ICONS icons/org.kde.kurrent.svg
+    DESTINATION ${KDE_INSTALL_ICONDIR}
+    THEME hicolor
 )

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: MIT -->
+<component type="desktop-application">
+  <id>org.kde.kurrent</id>
+  <launchable type="desktop-id">org.kde.kurrent.desktop</launchable>
+
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <project_group>KDE</project_group>
+
+  <name>Kurrent Terminal</name>
+  <summary>KDE Plasma-native terminal emulator for AI-assisted coding</summary>
+
+  <description>
+    <p>
+      Kurrent is a fast, GPU-accelerated terminal emulator built for the KDE Plasma
+      desktop. It uses a Rust-based rendering engine for high performance and a
+      Kirigami-based interface for native KDE integration.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Native KDE Plasma color scheme support</li>
+      <li>KWallet integration for secure credential storage</li>
+      <li>Plasma Activities support for context-based configurations</li>
+      <li>Desktop notifications via the freedesktop Notifications interface</li>
+      <li>GPU-accelerated terminal rendering via Rust and wgpu</li>
+      <li>WezTerm-compatible Lua configuration</li>
+      <li>Multiple tabs and split panes</li>
+    </ul>
+  </description>
+
+  <url type="homepage">https://github.com/shelbeely/Kaku</url>
+  <url type="bugtracker">https://github.com/shelbeely/Kaku/issues</url>
+
+  <developer id="org.kde.kurrent">
+    <name>Kurrent Contributors</name>
+  </developer>
+
+  <provides>
+    <binary>kurrent-kirigami-ui</binary>
+    <binary>kurrent</binary>
+  </provides>
+
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+  </supports>
+
+  <categories>
+    <category>System</category>
+    <category>TerminalEmulator</category>
+  </categories>
+
+  <content_rating type="oars-1.1" />
+
+  <releases>
+    <release version="0.3.1" date="2026-02-18">
+      <description>
+        <p>KDE HIG compliance improvements and full KDE Frameworks integration.</p>
+      </description>
+    </release>
+  </releases>
+</component>

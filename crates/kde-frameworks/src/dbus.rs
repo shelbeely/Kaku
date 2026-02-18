@@ -50,6 +50,16 @@ pub mod services {
     pub const PLASMA_SHELL: &str = "org.kde.plasmashell";
 }
 
+/// Application identity constants following KDE reverse-domain naming
+pub mod app {
+    /// Reverse-domain application ID (used in .desktop file, metainfo, icon name)
+    pub const APP_ID: &str = "org.kde.kurrent";
+    /// Human-readable application name
+    pub const APP_NAME: &str = "Kurrent Terminal";
+    /// Desktop file name (matches org.kde.kurrent.desktop)
+    pub const DESKTOP_FILE_NAME: &str = "org.kde.kurrent";
+}
+
 /// Common DBus paths
 pub mod paths {
     pub const KWIN: &str = "/KWin";
@@ -122,6 +132,13 @@ mod tests {
     fn test_detect_plasma_version() {
         // Just ensure it doesn't panic
         let _ = detect_plasma_version();
+    }
+
+    #[test]
+    fn test_app_identity_constants() {
+        assert_eq!(app::APP_ID, "org.kde.kurrent");
+        assert_eq!(app::DESKTOP_FILE_NAME, "org.kde.kurrent");
+        assert!(app::APP_NAME.contains("Kurrent"));
     }
 
     #[test]

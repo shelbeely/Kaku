@@ -1,6 +1,25 @@
-# KDE Plasma Integration for Kaku
+# KDE Plasma Integration for Kurrent
 
-This document outlines the deep integration of Kaku with the KDE Plasma desktop environment and KDE ecosystem.
+This document outlines the deep integration of Kurrent with the KDE Plasma desktop environment and KDE ecosystem.
+
+## KDE HIG Compliance
+
+Kurrent follows the [KDE Human Interface Guidelines](https://develop.kde.org/hig/) to be a first-class KDE application:
+
+| Requirement | Status | Details |
+|---|---|---|
+| XDG Desktop Entry (`.desktop`) | ✅ | `org.kde.kurrent.desktop` with actions, categories, keywords |
+| AppStream MetaInfo | ✅ | `org.kde.kurrent.metainfo.xml` for KDE Discover |
+| SVG application icon | ✅ | `org.kde.kurrent.svg` installed via ECMInstallIcons |
+| KAboutData in `main.cpp` | ✅ | Standard KDE `--version` / `--author` CLI, about dialog |
+| KLocalizedString / i18n | ✅ | All user-visible QML strings wrapped in `i18n()` |
+| Accessibility annotations | ✅ | `Accessible.name` / `.description` on all interactive elements |
+| KDE ECM CMake integration | ✅ | KDEInstallDirs, KDECMakeSettings, ECMInstallIcons |
+| Reverse-domain naming | ✅ | `org.kde.kurrent` everywhere |
+| KDE color scheme following | ✅ | `kde-frameworks` crate reads `kdeglobals` |
+| KWallet credential storage | ✅ | `kde-frameworks` crate wraps KWallet V5/V6 |
+| freedesktop Notifications | ✅ | `kde-frameworks` crate sends via DBus |
+| Plasma Activities support | ✅ | `kde-frameworks` crate queries ActivityManager |
 
 ## Vision
 

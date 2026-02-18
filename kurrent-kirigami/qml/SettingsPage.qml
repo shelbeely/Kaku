@@ -1,13 +1,19 @@
-// Settings page using Kirigami
+// Settings page following the KDE Human Interface Guidelines
+//
+// - All labels wrapped in i18n() for translation
+// - Accessible.name on every interactive control
+// - Kirigami.FormLayout for consistent label alignment
+// - Ellipsis on "Settings…" (upstream) per KDE HIG
+
 import QtQuick
 import QtQuick.Controls as QQC2
 import QtQuick.Layouts
 import org.kde.kirigami as Kirigami
-import org.kde.kirigami.delegates as KirigamiDelegates
 
 Kirigami.ScrollablePage {
     id: settingsPage
-    title: "Settings"
+    title: i18n("Settings")
+    Accessible.name: i18n("Application settings page")
 
     // Default values used when resetting
     readonly property string defaultShell: "/bin/bash"
@@ -20,19 +26,26 @@ Kirigami.ScrollablePage {
         width: parent.width
         spacing: Kirigami.Units.largeSpacing
 
-        // Appearance Section
+        // ── Appearance ──────────────────────────────────────────
         Kirigami.FormLayout {
             Layout.fillWidth: true
 
             Kirigami.Separator {
                 Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: "Appearance"
+                Kirigami.FormData.label: i18n("Appearance")
             }
 
             QQC2.ComboBox {
                 id: themeCombo
-                Kirigami.FormData.label: "Color Scheme:"
-                model: ["Follow KDE Plasma", "Light", "Dark", "Custom"]
+                Kirigami.FormData.label: i18n("Color scheme:")
+                model: [
+                    i18n("Follow KDE Plasma"),
+                    i18n("Light"),
+                    i18n("Dark"),
+                    i18n("Custom")
+                ]
+                Accessible.name: i18n("Terminal color scheme")
+                Accessible.description: i18n("Choose which color scheme the terminal uses")
 
                 onCurrentTextChanged: {
                     terminalBridge.applyColorScheme(currentText)
@@ -41,10 +54,11 @@ Kirigami.ScrollablePage {
 
             QQC2.SpinBox {
                 id: fontSizeSpinner
-                Kirigami.FormData.label: "Font Size:"
+                Kirigami.FormData.label: i18n("Font size:")
                 from: 8
                 to: 32
                 value: settingsPage.defaultFontSize
+                Accessible.name: i18n("Terminal font size")
 
                 onValueChanged: {
                     terminalBridge.setFontSize(value)
@@ -53,8 +67,10 @@ Kirigami.ScrollablePage {
 
             QQC2.CheckBox {
                 id: transparencyCheck
-                Kirigami.FormData.label: "Enable Transparency:"
+                text: i18n("Enable transparency")
+                Kirigami.FormData.label: ""
                 checked: settingsPage.defaultTransparency
+                Accessible.name: i18n("Enable terminal background transparency")
 
                 onCheckedChanged: {
                     terminalBridge.setOpacity(checked ? 0.9 : 1.0)
@@ -62,42 +78,47 @@ Kirigami.ScrollablePage {
             }
         }
 
-        // Shell Section
+        // ── Shell ───────────────────────────────────────────────
         Kirigami.FormLayout {
             Layout.fillWidth: true
 
             Kirigami.Separator {
                 Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: "Shell"
+                Kirigami.FormData.label: i18n("Shell")
             }
 
             QQC2.TextField {
                 id: shellPath
-                Kirigami.FormData.label: "Shell Command:"
+                Kirigami.FormData.label: i18n("Shell command:")
                 placeholderText: settingsPage.defaultShell
                 text: settingsPage.defaultShell
+                Accessible.name: i18n("Path to the shell executable")
             }
 
             QQC2.CheckBox {
                 id: starshipCheck
-                Kirigami.FormData.label: "Enable Starship Prompt:"
+                text: i18n("Enable Starship prompt")
+                Kirigami.FormData.label: ""
                 checked: true
+                Accessible.name: i18n("Use Starship cross-shell prompt")
             }
         }
 
-        // KDE Integration Section
+        // ── KDE Integration ─────────────────────────────────────
         Kirigami.FormLayout {
             Layout.fillWidth: true
 
             Kirigami.Separator {
                 Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: "KDE Integration"
+                Kirigami.FormData.label: i18n("KDE Integration")
             }
 
             QQC2.CheckBox {
                 id: kdeColorsCheck
-                Kirigami.FormData.label: "Use KDE Color Scheme:"
+                text: i18n("Use KDE color scheme")
+                Kirigami.FormData.label: ""
                 checked: settingsPage.defaultKdeColors
+                Accessible.name: i18n("Automatically follow the KDE Plasma color scheme")
 
                 onCheckedChanged: {
                     themeCombo.enabled = !checked
@@ -109,17 +130,21 @@ Kirigami.ScrollablePage {
 
             QQC2.CheckBox {
                 id: kwalletCheck
-                Kirigami.FormData.label: "Store API Keys in KWallet:"
+                text: i18n("Store API keys in KWallet")
+                Kirigami.FormData.label: ""
                 checked: settingsPage.defaultKwallet
+                Accessible.name: i18n("Use KDE Wallet to securely store API credentials")
             }
 
             QQC2.CheckBox {
                 id: activitiesCheck
-                Kirigami.FormData.label: "Use Plasma Activities:"
+                text: i18n("Use Plasma Activities")
+                Kirigami.FormData.label: ""
                 checked: false
                 enabled: true
+                Accessible.name: i18n("Load different configurations per Plasma Activity")
 
-                QQC2.ToolTip.text: "Different terminal configs per Plasma Activity"
+                QQC2.ToolTip.text: i18n("Different terminal configurations per Plasma Activity")
                 QQC2.ToolTip.visible: activitiesHover.hovered
 
                 HoverHandler {
@@ -128,38 +153,43 @@ Kirigami.ScrollablePage {
             }
         }
 
-        // AI Assistant Section
+        // ── AI Assistant ────────────────────────────────────────
         Kirigami.FormLayout {
             Layout.fillWidth: true
 
             Kirigami.Separator {
                 Kirigami.FormData.isSection: true
-                Kirigami.FormData.label: "AI Assistant"
+                Kirigami.FormData.label: i18n("AI Assistant")
             }
 
             QQC2.TextField {
                 id: openaiKeyField
-                Kirigami.FormData.label: "OpenAI API Key:"
-                placeholderText: "sk-..."
+                Kirigami.FormData.label: i18n("OpenAI API key:")
+                placeholderText: "sk-…"
                 echoMode: QQC2.TextField.Password
+                Accessible.name: i18n("OpenAI API key input")
+                Accessible.description: i18n("Enter your OpenAI API key; it will be stored securely via KWallet if enabled")
             }
 
             QQC2.TextField {
                 id: anthropicKeyField
-                Kirigami.FormData.label: "Anthropic API Key:"
-                placeholderText: "sk-ant-..."
+                Kirigami.FormData.label: i18n("Anthropic API key:")
+                placeholderText: "sk-ant-…"
                 echoMode: QQC2.TextField.Password
+                Accessible.name: i18n("Anthropic API key input")
+                Accessible.description: i18n("Enter your Anthropic API key; it will be stored securely via KWallet if enabled")
             }
         }
 
-        // Action buttons
+        // ── Actions ─────────────────────────────────────────────
         RowLayout {
             Layout.fillWidth: true
             Layout.topMargin: Kirigami.Units.largeSpacing
 
             QQC2.Button {
-                text: "Reset to Defaults"
+                text: i18n("Reset to Defaults")
                 icon.name: "edit-undo"
+                Accessible.name: i18n("Reset all settings to their default values")
 
                 onClicked: {
                     themeCombo.currentIndex = 0
@@ -178,8 +208,9 @@ Kirigami.ScrollablePage {
             Item { Layout.fillWidth: true }
 
             QQC2.Button {
-                text: "Apply"
+                text: i18n("Apply")
                 icon.name: "dialog-ok-apply"
+                Accessible.name: i18n("Apply current settings")
 
                 onClicked: {
                     terminalBridge.applyColorScheme(themeCombo.currentText)
