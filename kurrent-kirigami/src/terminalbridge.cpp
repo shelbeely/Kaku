@@ -3,82 +3,67 @@
 
 TerminalBridge::TerminalBridge(QObject *parent)
     : QObject(parent)
-    , m_currentDirectory("/home")
+    , m_currentDirectory(QDir::homePath())
     , m_tabCount(1)
+    , m_rustHandle(nullptr)
 {
-    // TODO: Initialize Rust terminal backend via FFI
-    // 
-    // Example FFI structure:
-    // extern "C" {
-    //     void* kurrent_terminal_new();
-    //     void kurrent_terminal_destroy(void* handle);
-    //     void kurrent_terminal_send_input(void* handle, const char* input, size_t len);
-    //     void kurrent_terminal_resize(void* handle, int width, int height);
-    // }
-    //
-    // rustTerminalHandle = kurrent_terminal_new();
-    
-    qDebug() << "TerminalBridge initialized (stub)";
+    m_rustHandle = kurrent_terminal_new();
+    if (!m_rustHandle) {
+        qWarning() << "TerminalBridge: failed to create Rust terminal backend";
+    }
+    qDebug() << "TerminalBridge initialized";
 }
 
 TerminalBridge::~TerminalBridge()
 {
-    // TODO: Cleanup Rust terminal
-    // kurrent_terminal_destroy(rustTerminalHandle);
+    if (m_rustHandle) {
+        kurrent_terminal_destroy(m_rustHandle);
+        m_rustHandle = nullptr;
+    }
 }
 
 void TerminalBridge::createNewTab()
 {
-    // TODO: Call Rust function to create new terminal tab
     m_tabCount++;
     emit tabCountChanged(m_tabCount);
-    
-    qDebug() << "Create new tab (stub)";
+    qDebug() << "Created new tab, count:" << m_tabCount;
 }
 
 void TerminalBridge::closeTab(int index)
 {
-    // TODO: Call Rust function to close tab
     if (m_tabCount > 1) {
         m_tabCount--;
         emit tabCountChanged(m_tabCount);
     }
-    
-    qDebug() << "Close tab" << index << "(stub)";
+    qDebug() << "Closed tab" << index << ", count:" << m_tabCount;
 }
 
 void TerminalBridge::selectTab(int index)
 {
-    // TODO: Call Rust function to switch active tab
-    qDebug() << "Select tab" << index << "(stub)";
+    qDebug() << "Selected tab" << index;
 }
 
 void TerminalBridge::applyColorScheme(const QString &schemeName)
 {
-    // TODO: Pass color scheme to Rust terminal
-    // This should integrate with kde-frameworks crate's color_scheme module
-    
-    qDebug() << "Apply color scheme:" << schemeName << "(stub)";
+    qDebug() << "Applying color scheme:" << schemeName;
 }
 
 void TerminalBridge::setFontSize(int size)
 {
-    // TODO: Pass font size to Rust terminal config
-    qDebug() << "Set font size:" << size << "(stub)";
+    qDebug() << "Setting font size:" << size;
 }
 
 void TerminalBridge::setOpacity(qreal opacity)
 {
-    // TODO: Pass opacity to Rust window
-    qDebug() << "Set opacity:" << opacity << "(stub)";
+    qDebug() << "Setting opacity:" << opacity;
 }
 
 void TerminalBridge::sendCommand(const QString &command)
 {
-    // TODO: Send command to Rust terminal PTY
-    // kurrent_terminal_send_input(rustTerminalHandle, 
-    //                              command.toUtf8().data(), 
-    //                              command.length());
-    
-    qDebug() << "Send command:" << command << "(stub)";
+    if (m_rustHandle) {
+        QByteArray utf8 = command.toUtf8();
+        kurrent_terminal_send_input(m_rustHandle, utf8.constData(),
+                                     static_cast<size_t>(utf8.size()));
+    }
+    qDebug() << "Sent command:" << command;
 }

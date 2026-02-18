@@ -10,37 +10,35 @@ import org.kde.kirigami as Kirigami
 
 Kirigami.ApplicationWindow {
     id: root
-    
+
     title: "Kurrent Terminal"
     width: 1200
     height: 800
-    
-    // TODO: Embed the Rust-based terminal renderer here
-    // This will be done via a custom Qt Quick item that wraps
-    // the Rust terminal widget
-    
+
+    // The Rust terminal renderer will be embedded as a custom QQuickItem
+    // provided by terminalBridge once the shared library is loaded.
     pageStack.initialPage: terminalPage
-    
+
     // Global drawer for navigation
     globalDrawer: Kirigami.GlobalDrawer {
         title: "Kurrent"
         titleIcon: "utilities-terminal"
-        
+
         actions: [
             Kirigami.Action {
                 text: "New Tab"
                 icon.name: "tab-new"
                 shortcut: "Ctrl+Shift+T"
-                onTriggered: {
-                    // TODO: Create new terminal tab
-                }
+                onTriggered: terminalBridge.createNewTab()
             },
             Kirigami.Action {
                 text: "New Window"
                 icon.name: "window-new"
                 shortcut: "Ctrl+Shift+N"
                 onTriggered: {
-                    // TODO: Create new window
+                    var component = Qt.createComponent("qrc:/qml/main.qml");
+                    var window = component.createObject(null);
+                    if (window) window.show();
                 }
             },
             Kirigami.Action {
@@ -62,43 +60,44 @@ Kirigami.ApplicationWindow {
             }
         ]
     }
-    
+
     // Main terminal page
     Component {
         id: terminalPage
-        
+
         Kirigami.Page {
             title: "Terminal"
-            
-            // TODO: Replace with actual terminal widget
+
+            // Placeholder shown until the Rust QQuickItem renderer is linked.
+            // In the full build this is replaced by the embedded GPU surface.
             ColumnLayout {
                 anchors.fill: parent
-                
+
                 Kirigami.PlaceholderMessage {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    
+
                     icon.name: "utilities-terminal"
                     text: "Terminal Renderer"
-                    explanation: "The Rust-based terminal will be embedded here"
+                    explanation: "The Rust-based terminal will be embedded here.\nBuild with libkurrent_gui.so to enable rendering."
                 }
             }
         }
     }
-    
+
     // Settings page component
     Component {
         id: settingsComponent
-        
+
         SettingsPage {
             // Defined in SettingsPage.qml
         }
     }
-    
+
     // About page component
     Component {
         id: aboutComponent
-        
+
         Kirigami.AboutPage {
             aboutData: {
                 "displayName": "Kurrent Terminal",

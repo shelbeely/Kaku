@@ -16,21 +16,28 @@
 //! This module provides utilities for connecting to and communicating
 //! with KDE services via DBus.
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 
-/// Get a DBus connection to the session bus
-pub fn session_connection() -> Result<zbus::Connection> {
-    // TODO: Create blocking connection to session bus
-    // zbus::blocking::Connection::session()
-    unimplemented!("DBus session connection not yet implemented")
+/// Get a blocking DBus connection to the session bus
+pub fn session_connection() -> Result<zbus::blocking::Connection> {
+    zbus::blocking::Connection::session()
+        .context("Failed to connect to DBus session bus")
 }
 
-/// Check if a DBus service is available
+/// Check if a DBus service is available on the session bus
 pub fn is_service_available(service_name: &str) -> bool {
-    // TODO: Query DBus to see if service exists
-    // Use org.freedesktop.DBus.ListNames or NameHasOwner
-    log::info!("Would check if DBus service exists: {}", service_name);
-    false
+    let conn = match session_connection() {
+        Ok(c) => c,
+        Err(_) => return false,
+    };
+    let proxy = match zbus::blocking::fdo::DBusProxy::new(&conn) {
+        Ok(p) => p,
+        Err(_) => return false,
+    };
+    match service_name.try_into() {
+        Ok(name) => proxy.name_has_owner(name).unwrap_or(false),
+        Err(_) => false,
+    }
 }
 
 /// KDE DBus service names
@@ -46,7 +53,7 @@ pub mod services {
 /// Common DBus paths
 pub mod paths {
     pub const KWIN: &str = "/KWin";
-    pub const KWALLET: &str = "/modules/kwalletd5";  // or kwalletd6
+    pub const KWALLET: &str = "/modules/kwalletd5";
     pub const ACTIVITY_MANAGER: &str = "/ActivityManager/Activities";
     pub const NOTIFICATIONS: &str = "/org/freedesktop/Notifications";
 }
@@ -58,16 +65,13 @@ pub mod interfaces {
     pub const NOTIFICATIONS: &str = "org.freedesktop.Notifications";
 }
 
-/// Detect KDE Plasma version
+/// Detect KDE Plasma version from environment
 pub fn detect_plasma_version() -> Option<String> {
-    // TODO: Query KDE_SESSION_VERSION environment variable
-    // or query org.kde.plasmashell for version
     std::env::var("KDE_SESSION_VERSION").ok()
 }
 
 /// Check if running in KDE Plasma
 pub fn is_kde_plasma() -> bool {
-    // Check XDG_CURRENT_DESKTOP for KDE
     if let Ok(desktop) = std::env::var("XDG_CURRENT_DESKTOP") {
         desktop.to_uppercase().contains("KDE")
     } else {
@@ -94,13 +98,35 @@ mod tests {
         assert_eq!(services::KWIN, "org.kde.KWin");
         assert_eq!(services::NOTIFICATIONS, "org.freedesktop.Notifications");
     }
-    
+
+    #[test]
+    fn test_path_constants() {
+        assert_eq!(paths::NOTIFICATIONS, "/org/freedesktop/Notifications");
+        assert_eq!(paths::ACTIVITY_MANAGER, "/ActivityManager/Activities");
+    }
+
+    #[test]
+    fn test_interface_constants() {
+        assert_eq!(interfaces::NOTIFICATIONS, "org.freedesktop.Notifications");
+        assert_eq!(interfaces::KWALLET, "org.kde.KWallet");
+    }
+
     #[test]
     fn test_desktop_detection() {
-        // These tests will pass/fail based on environment
-        // Just ensure the functions don't panic
         let _ = is_kde_plasma();
         let _ = is_wayland();
         let _ = is_x11();
+    }
+
+    #[test]
+    fn test_detect_plasma_version() {
+        // Just ensure it doesn't panic
+        let _ = detect_plasma_version();
+    }
+
+    #[test]
+    fn test_is_service_available_no_panic() {
+        // Will return false in CI (no DBus session), but should not panic
+        let _ = is_service_available("org.freedesktop.Notifications");
     }
 }
