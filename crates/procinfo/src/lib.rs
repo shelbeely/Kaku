@@ -84,17 +84,17 @@ impl LocalProcessInfo {
         names
     }
 
-    #[cfg(not(target_os = "macos"))]
+    #[cfg(not(any(target_os = "macos", target_os = "linux")))]
     pub fn with_root_pid(_pid: u32) -> Option<Self> {
         None
     }
 
-    #[cfg(not(target_os = "macos"))]
+    #[cfg(not(any(target_os = "macos", target_os = "linux")))]
     pub fn current_working_dir(_pid: u32) -> Option<PathBuf> {
         None
     }
 
-    #[cfg(not(target_os = "macos"))]
+    #[cfg(not(any(target_os = "macos", target_os = "linux")))]
     pub fn executable_path(_pid: u32) -> Option<PathBuf> {
         None
     }

@@ -57,3 +57,15 @@ objc.workspace = true
 objc2-core-graphics.workspace = true
 plist.workspace = true
 shlex.workspace = true
+
+[target.'cfg(all(unix, not(target_os="macos")))'.dependencies]
+wayland-backend.workspace = true
+wayland-client.workspace = true
+wayland-egl.workspace = true
+wayland-protocols.workspace = true
+wayland-protocols-plasma.workspace = true
+x11.workspace = true
+xcb.workspace = true
+xcb-imdkit.workspace = true
+xkbcommon.workspace = true
+smithay-client-toolkit.workspace = true

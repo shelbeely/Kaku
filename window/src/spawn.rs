@@ -167,7 +167,7 @@ impl SpawnQueue {
         use std::io::Write;
 
         self.queue_func(f, high_pri);
-        while let Err(err) = Self::lock_recover(&self.write, "write").write(b"x") {
+        while let Err(err) = Self::lock_recover::<FileDescriptor>(&self.write, "write").write(b"x") {
             if err.kind() == std::io::ErrorKind::Interrupted {
                 continue;
             }
@@ -193,13 +193,13 @@ impl SpawnQueue {
         // iteration.
         let mut byte = [0u8; 64];
         use std::io::Read;
-        Self::lock_recover(&self.read, "read").read(&mut byte).ok();
+        Self::lock_recover::<FileDescriptor>(&self.read, "read").read(&mut byte).ok();
 
         self.has_any_queued()
     }
 
     pub(crate) fn raw_fd(&self) -> std::os::unix::io::RawFd {
-        Self::lock_recover(&self.read, "read").as_raw_fd()
+        Self::lock_recover::<FileDescriptor>(&self.read, "read").as_raw_fd()
     }
 }
 
