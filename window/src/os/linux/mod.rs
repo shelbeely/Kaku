@@ -23,7 +23,9 @@ impl ConnectionOps for Connection {
     }
 
     fn default_dpi(&self) -> f64 {
-        96.0 // Standard Linux DPI
+        // 96.0 DPI is the standard default for X11 and most Linux desktop environments
+        // This matches the common screen resolution assumption on Linux systems
+        96.0
     }
 
     fn terminate_message_loop(&self) {

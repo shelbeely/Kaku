@@ -45,7 +45,8 @@ impl LocalProcessInfo {
         let rest = parts.next()?;
         let fields: Vec<&str> = rest.split_whitespace().collect();
         
-        // Need at least 20 fields to access index 19 (start_time at position 20 in /proc/pid/stat)
+        // Need at least 20 fields - we access index 19 (field 20 in /proc/pid/stat format)
+        // which is the process start time in clock ticks since system boot
         if fields.len() < 20 {
             return None;
         }
